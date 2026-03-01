@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Interior Design Estimator</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Animated Gradient Background */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #c471f5, #fa71cd, #12c2e9, #f64f59);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glassmorphism Card */
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 35px;
+    width: 380px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    color: white;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 18px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Animated Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+}
+
+/* Result Animation */
+.result {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.5s ease;
+}
+
+.result.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Luxury Interior Estimator</h2>
+
+    <label>Room Type</label>
+    <select id="room">
+        <option value="Living Room">Living Room</option>
+        <option value="Bedroom">Bedroom</option>
+        <option value="Kitchen">Kitchen</option>
+        <option value="Office">Office</option>
+    </select>
+
+    <label>Design Style</label>
+    <select id="style">
+        <option value="1500">Modern (₹1500/sq.ft)</option>
+        <option value="1200">Traditional (₹1200/sq.ft)</option>
+        <option value="1000">Minimalist (₹1000/sq.ft)</option>
+    </select>
+
+    <label>Room Size (sq.ft)</label>
+    <input type="number" id="size" placeholder="Enter size">
+
+    <button onclick="calculateCost()">Calculate Cost</button>
+
+    <div class="result" id="result"></div>
+
+    <div class="footer">Designed with ❤ | Interior Studio</div>
+</div>
+
+<script>
+function calculateCost() {
+    let room = document.getElementById("room").value;
+    let costPerSqFt = document.getElementById("style").value;
+    let size = document.getElementById("size").value;
+    let resultDiv = document.getElementById("result");
+
+    if(size === "" || size <= 0) {
+        resultDiv.innerHTML = "Please enter a valid room size!";
+        resultDiv.classList.add("show");
+        return;
+    }
+
+    let total = costPerSqFt * size;
+
+    resultDiv.innerHTML = 
+        "Room: " + room + "<br>" +
+        "Total Estimated Cost: ₹" + total.toLocaleString();
+
+    resultDiv.classList.add("show");
+}
+</script>
+
+</body>
+</html>
